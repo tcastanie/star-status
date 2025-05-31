@@ -1,0 +1,24 @@
+@import "tailwindcss";
+@import "@nuxt/ui-pro";
+
+@theme static {
+  --font-mona: 'Mona Sans', sans-serif;
+  --font-hubot: 'Hubot Sans', sans-serif;
+
+  --color-bego-50: #FF7777;
+  --color-bego-100: #F7676E;
+  --color-bego-200: #F15565;
+  --color-bego-300: #EC465F;
+  --color-bego-400: #E6375A;
+  --color-bego-500: #E02956;
+  --color-bego-600: #D32157;
+  --color-bego-700: #C31C56;
+  --color-bego-800: #A4164F;
+  --color-bego-900: #7C1040;
+  --color-bego-950: #430826;
+}
+
+/* :root {
+  --ui-radius: 0.5rem;
+  --ui-container: var(--container-4xl);
+} */
