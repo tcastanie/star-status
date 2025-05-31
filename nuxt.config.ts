@@ -16,10 +16,38 @@ export default defineNuxtConfig({
     },
   },
   css: ['~/assets/css/main.css'],
+  runtimeConfig: {
+    urlTycho: '',
+    urlRoci: '',
+    urlSpace: '',
+    urlSct: '',
+    public: {
+      defaultTimeout: 10000, // 10 seconds
+    },
+  },
   future: {
     compatibilityVersion: 4,
   },
   compatibilityDate: '2025-05-15',
+  nitro: {
+    experimental: {
+      tasks: true,
+    },
+    // scheduledTasks: {
+    //   '0 * * * *': [
+    //     'check:tcastanie-dev',
+    //     'check:another-apod-viewer',
+    //     'check:tycho-station',
+    //   ],
+    //   '*/15 * * * *': [
+    //     'check:rocinante-spaceship',
+    //     'check:space-platform',
+    //     'check:domaine-langelus',
+    //     'check:sct-app',
+    //     'check:sct-server',
+    //   ],
+    // },
+  },
   hub: {
     database: true,
   },

@@ -7,9 +7,9 @@ import { fr } from '@nuxt/ui-pro/locale'
     <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator color="#e6375a" />
 
-    <UHeader>
+    <UHeader :toggle="false">
       <template #title>
-        <img src="/logo.svg" alt="Logo Star Status" class="h-12 w-auto">
+        <img src="/logo.svg" alt="Logo Star Status" class="h-20 w-auto max-w-[85vw]">
       </template>
     </UHeader>
 
@@ -19,6 +19,6 @@ import { fr } from '@nuxt/ui-pro/locale'
       </UMain>
     </UContainer>
 
-    <UFooter>Footer</UFooter>
+    <UFooter>🌠</UFooter>
   </UApp>
 </template>

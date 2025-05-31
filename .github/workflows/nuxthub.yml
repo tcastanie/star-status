@@ -3,7 +3,7 @@ on: push
 
 jobs:
   deploy:
-    name: "Deploy to NuxtHub"
+    name: Deploy to NuxtHub
     runs-on: ubuntu-latest
     environment:
       name: ${{ github.ref == 'refs/heads/main' && 'production' || 'preview' }}
@@ -18,13 +18,13 @@ jobs:
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
-          version: 10
+          version: 10.11.0
 
       - name: Install Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 22
-          cache: 'pnpm'
+          cache: pnpm
 
       - name: Install dependencies
         run: pnpm install
@@ -34,6 +34,12 @@ jobs:
 
       - name: Build application
         run: pnpm build
+        env:
+          NUXT_UI_PRO_LICENSE: ${{ secrets.NUXT_UI_PRO_LICENSE }}
+          NUXT_URL_TYCHO: ${{ secrets.NUXT_URL_TYCHO }}
+          NUXT_URL_ROCI: ${{ secrets.NUXT_URL_ROCI }}
+          NUXT_URL_SPACE: ${{ secrets.NUXT_URL_SPACE }}
+          NUXT_URL_SCT: ${{ secrets.NUXT_URL_SCT }}
 
       - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v1
