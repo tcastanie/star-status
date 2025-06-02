@@ -1,6 +1,6 @@
 CREATE TABLE `check` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
-	`created_at` integer DEFAULT (current_timestamp) NOT NULL,
+	`created_at` integer NOT NULL,
 	`site_id` integer NOT NULL,
 	`success` integer,
 	`response_time` integer NOT NULL,
@@ -11,6 +11,6 @@ CREATE TABLE `check` (
 CREATE TABLE `site` (
 	`id` integer PRIMARY KEY AUTOINCREMENT NOT NULL,
 	`name` text NOT NULL,
-	`project` text,
+	`project` text NOT NULL,
 	`sort` integer
 );

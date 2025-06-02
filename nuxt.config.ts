@@ -39,9 +39,9 @@ export default defineNuxtConfig({
       tasks: true,
     },
     // scheduledTasks: {
-    //   '0 * * * *': [
+    //   '0 * * * *': ['check:another-apod-viewer'],
+    //   '*/30 * * * *': [
     //     'check:tcastanie-dev',
-    //     'check:another-apod-viewer',
     //     'check:tycho-station',
     //   ],
     //   '*/15 * * * *': [
@@ -54,12 +54,18 @@ export default defineNuxtConfig({
     // },
   },
   hub: {
+    cache: false,
     database: true,
   },
   eslint: {
     config: {
       standalone: false,
       stylistic: true,
+    },
+  },
+  icon: {
+    clientBundle: {
+      scan: true,
     },
   },
 })

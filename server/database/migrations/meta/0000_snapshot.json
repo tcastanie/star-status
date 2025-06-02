@@ -1,7 +1,7 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "69bdb211-beb0-445e-9a63-8f9d92ce962c",
+  "id": "a4d52593-0761-4157-9dda-b747e6563c9f",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
     "check": {
@@ -19,8 +19,7 @@
           "type": "integer",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": "(current_timestamp)"
+          "autoincrement": false
         },
         "site_id": {
           "name": "site_id",
@@ -92,7 +91,7 @@
           "name": "project",
           "type": "text",
           "primaryKey": false,
-          "notNull": false,
+          "notNull": true,
           "autoincrement": false
         },
         "sort": {

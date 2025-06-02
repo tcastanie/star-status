@@ -1,5 +1,10 @@
 <script setup lang="ts">
+import type { NuxtError } from '#app'
 import { en } from '@nuxt/ui-pro/locale'
+
+defineProps<{
+  error: NuxtError
+}>()
 </script>
 
 <template>
@@ -8,13 +13,6 @@ import { en } from '@nuxt/ui-pro/locale'
     <NuxtLoadingIndicator color="#e6375a" />
 
     <TheHeader />
-
-    <UContainer>
-      <UMain>
-        <NuxtPage />
-      </UMain>
-    </UContainer>
-
-    <UFooter>🌠</UFooter>
+    <UError :error="error" />
   </UApp>
 </template>

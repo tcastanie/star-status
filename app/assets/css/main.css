@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "@nuxt/ui-pro";
 
+@source "../../utils/projects";
+
 @theme static {
   --font-mona: 'Mona Sans', sans-serif;
   --font-hubot: 'Hubot Sans', sans-serif;
@@ -19,7 +21,5 @@
 }
 
 :root {
-  --ui-header-height: --spacing(24);
-  /* --ui-radius: 0.5rem;
-  --ui-container: var(--container-4xl); */
+  --ui-radius: 0.5rem;
 }

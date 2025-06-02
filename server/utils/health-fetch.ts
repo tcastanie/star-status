@@ -33,5 +33,6 @@ export default async function (checkUrl: string) {
     success,
     responseTime,
     error: err ? err.message : null,
+    createdAt: new Date(),
   }
 }
