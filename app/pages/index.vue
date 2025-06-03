@@ -5,8 +5,8 @@ definePageMeta({
   },
 })
 
-const query = useRoute().query
-const projectSlug = query.project ? String(query.project) : 'tcastanie'
+const routeQuery = useRoute().query
+const projectSlug = routeQuery.project ? String(routeQuery.project) : null
 
 const items = ref([
   { label: 'Last 24 hours', value: 1 },
@@ -18,12 +18,28 @@ const items = ref([
 ])
 const days = ref(30)
 
+const query = computed(() => {
+  return {
+    days: days.value,
+    ...(projectSlug && { project: projectSlug }),
+  }
+})
 const { data: services, status } = await useFetch('/api/snapshots', {
-  query: { days, project: projectSlug },
+  query,
+})
+
+const nbServicesDown = computed(() => {
+  let downServices = 0
+  for (const snapshots of Object.values(services.value || {})) {
+    if (snapshots[0] && snapshots[0].status === 'down') {
+      downServices++
+    }
+  }
+  return downServices
 })
 
 const project = computed(() => {
-  return projects.find(project => project.slug === projectSlug) || projects[0]
+  return projects.find(p => p.slug === projectSlug) || projects[0]
 })
 </script>
 
@@ -37,10 +53,20 @@ const project = computed(() => {
 
     <UPageHeader>
       <template #title>
-        All systems <span class="text-success">operational</span>
+        <template v-if="nbServicesDown === 0">
+          All systems <span class="text-success">operational</span>
+        </template>
+        <template v-else>
+          {{ `${nbServicesDown} service${nbServicesDown > 1 ? 's' : ''} ` }}<span class="text-error">down</span>
+        </template>
       </template>
       <template #links>
-        <USelect v-model="days" :items="items" class="w-36" />
+        <USelect
+          v-model="days"
+          :items="items"
+          :loading="status === 'pending'"
+          class="w-48"
+        />
       </template>
     </UPageHeader>
 
@@ -48,12 +74,20 @@ const project = computed(() => {
       <UPageList class="space-y-8">
         <USkeleton v-if="status === 'pending'" class="h-27 rounded-lg" />
         <template v-else>
-          <WebsiteMonitor
+          <ServiceMonitor
             v-for="(snapshots, label) in services"
             :key="label"
-            :title="label"
+            :title="String(label)"
             :snapshots
           />
+          <template v-if="!Object.keys(services || {}).length">
+            <UAlert
+              variant="soft"
+              color="neutral"
+              title="No data found"
+              icon="i-mingcute-server-fill"
+            />
+          </template>
         </template>
       </UPageList>
     </UPageBody>

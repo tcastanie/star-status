@@ -13,4 +13,5 @@ export default defineCachedFunction(async (event: H3Event) => {
 }, {
   maxAge: 60 * 60, // 1 hour
   name: 'fetch-sites',
+  getKey: () => 'all-sites',
 })

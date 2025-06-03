@@ -1,12 +1,12 @@
+import type { H3Event } from 'h3'
 import { z } from 'zod/v4'
 
-export default defineEventHandler(async (event) => {
+export default defineCachedEventHandler(async (event: H3Event) => {
   const allSites = await fetchSites(event)
-  const onlyProjects = Array.from(new Set(allSites.map(site => site.project)))
 
   const querySchema = z.strictObject({
     days: z.coerce.number().min(1).max(365).default(30),
-    project: z.enum(onlyProjects).optional(),
+    project: z.enum(['tcastanie', 'domaine-langelus', 'stoneybatter-cross-training']).optional(),
   })
   const query = await getValidatedQuery(event, q => querySchema.safeParse(q))
   if (!query.success) {
@@ -17,7 +17,6 @@ export default defineEventHandler(async (event) => {
     })
   }
   const { days, project } = query.data
-  // console.info('Fetching snapshots for', { days, project })
 
   const projectIds = allSites
     .filter(site => site.project === project || !project)
@@ -27,15 +26,20 @@ export default defineEventHandler(async (event) => {
   }))
 
   // add service name to each group of checks
-  const groupedSnapshots = checks.flat().reduce((acc, check) => {
+  const groupedChecks = checks.flat().reduce((acc, check) => {
     const serviceName = allSites.find(site => site.id === check.siteId)?.name || 'Unknown'
     if (!acc[serviceName]) {
       acc[serviceName] = []
     }
-    // TODO: transform array of checks into 90 snapshots (mean)
     acc[serviceName].push(check)
     return acc
   }, {} as Record<string, Check[]>)
 
+  const groupedSnapshots = transformChecksToSnapshots(groupedChecks, days)
+
   return groupedSnapshots
+}, {
+  maxAge: 15 * 60, // 15 minutes
+  name: 'snapshots',
+  getKey: (event: H3Event) => event.node.req.url || 'snapshots',
 })

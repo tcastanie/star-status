@@ -41,7 +41,7 @@ export default defineAppConfig({
       chevronUp: 'i-mingcute-up-fill',
       close: 'i-mingcute-close-fill',
       ellipsis: 'i-mingcute-more-1-fill',
-      loading: 'i-mingcute-refresh-2-fill',
+      loading: 'i-mingcute-loading-fill',
       minus: 'i-mingcute-minimize-fill',
       plus: 'i-mingcute-add-fill',
       search: 'i-mingcute-search-3-fill',

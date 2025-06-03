@@ -38,20 +38,22 @@ export default defineNuxtConfig({
     experimental: {
       tasks: true,
     },
-    // scheduledTasks: {
-    //   '0 * * * *': ['check:another-apod-viewer'],
-    //   '*/30 * * * *': [
-    //     'check:tcastanie-dev',
-    //     'check:tycho-station',
-    //   ],
-    //   '*/15 * * * *': [
-    //     'check:rocinante-spaceship',
-    //     'check:space-platform',
-    //     'check:domaine-langelus',
-    //     'check:sct-app',
-    //     'check:sct-server',
-    //   ],
-    // },
+    scheduledTasks: {
+      '0 * * * *': [
+        'check:another-apod-viewer',
+      ],
+      '*/30 * * * *': [
+        'check:tcastanie-dev',
+        'check:tycho-station',
+      ],
+      '*/15 * * * *': [
+        'check:rocinante-spaceship',
+        'check:space-platform',
+        'check:domaine-langelus',
+        'check:sct-app',
+        'check:sct-server',
+      ],
+    },
   },
   hub: {
     cache: false,
@@ -66,6 +68,12 @@ export default defineNuxtConfig({
   icon: {
     clientBundle: {
       scan: true,
+      icons: [
+        'mingcute:check-fill',
+        'mingcute:moon-fill',
+        'mingcute:sun-fill',
+        'mingcute:loading-fill',
+      ],
     },
   },
 })

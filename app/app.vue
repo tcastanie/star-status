@@ -3,7 +3,10 @@ import { en } from '@nuxt/ui-pro/locale'
 </script>
 
 <template>
-  <UApp :locale="en">
+  <UApp
+    :locale="en"
+    :tooltip="{ delayDuration: 0, disableClosingTrigger: true }"
+  >
     <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator color="#e6375a" />
 
