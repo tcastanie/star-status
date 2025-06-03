@@ -8,8 +8,11 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const event = useEvent()
-    const { urlRoci } = useRuntimeConfig(event)
+    // const { urlRoci } = useRuntimeConfig(event)
+    // eslint-disable-next-line node/prefer-global/process
+    console.log(process.env.NUXT_URL_ROCI)
+    // eslint-disable-next-line node/prefer-global/process
+    const urlRoci = process.env.NUXT_URL_ROCI || ''
     console.log('Checking:', urlRoci)
     const healthData = await healthFetch(urlRoci)
 

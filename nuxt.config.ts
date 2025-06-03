@@ -42,7 +42,6 @@ export default defineNuxtConfig({
     },
     experimental: {
       tasks: true,
-      asyncContext: true,
     },
     scheduledTasks: {
       '0 * * * *': [
