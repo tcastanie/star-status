@@ -36,7 +36,7 @@ export default defineNuxtConfig({
       nodeCompat: true,
       wrangler: {
         triggers: {
-          crons: ['0 * * * *', '*/30 * * * *', '*/15 * * * *'],
+          crons: ['*/30 * * * *', '*/15 * * * *'],
         },
       },
     },
@@ -44,11 +44,9 @@ export default defineNuxtConfig({
       tasks: true,
     },
     scheduledTasks: {
-      '0 * * * *': [
-        'check:another-apod-viewer',
-      ],
       '*/30 * * * *': [
         'check:tcastanie-dev',
+        'check:another-apod-viewer',
         'check:tycho-station',
       ],
       '*/15 * * * *': [
