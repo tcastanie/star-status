@@ -8,8 +8,8 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const event = useEvent()
-    const { urlSct } = useRuntimeConfig(event)
+    // eslint-disable-next-line node/prefer-global/process
+    const urlSct = process.env.NUXT_URL_SCT || ''
     const healthData = await healthFetch(urlSct)
 
     const check = await useDrizzle().insert(tables.check).values({
