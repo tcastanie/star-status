@@ -10,9 +10,9 @@ const invertedSnapshots = computed(() => {
 })
 
 const statusColor = computed(() => {
-  if (invertedSnapshots.value[0]?.status === 'up')
+  if (snapshots[0]?.status === 'up')
     return 'success'
-  if (invertedSnapshots.value[0]?.status === 'down')
+  if (snapshots[0]?.status === 'down')
     return 'error'
   return 'neutral'
 })

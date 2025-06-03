@@ -16,8 +16,8 @@ export default function transformChecksToSnapshots(
         errors?: { message: string, date: Date }[]
       }[] = []
       for (let i = 0; i < 90; i++) {
-        const start = new Date(Date.now() - (i * snapshotsDuration * 60 * 1000))
-        const end = new Date(start.getTime() + (snapshotsDuration * 60 * 1000))
+        const end = new Date(Date.now() - (i * snapshotsDuration * 60 * 1000))
+        const start = new Date(end.getTime() - (snapshotsDuration * 60 * 1000))
 
         const snapshotChecks = checks.filter((check) => {
           const checkDate = new Date(check.createdAt)

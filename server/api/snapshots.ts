@@ -1,7 +1,7 @@
 import type { H3Event } from 'h3'
 import { z } from 'zod/v4'
 
-export default defineCachedEventHandler(async (event: H3Event) => {
+export default defineEventHandler(async (event: H3Event) => {
   const allSites = await fetchSites(event)
 
   const querySchema = z.strictObject({
@@ -38,8 +38,8 @@ export default defineCachedEventHandler(async (event: H3Event) => {
   const groupedSnapshots = transformChecksToSnapshots(groupedChecks, days)
 
   return groupedSnapshots
-}, {
-  maxAge: 15 * 60, // 15 minutes
-  name: 'snapshots',
-  getKey: (event: H3Event) => event.node.req.url || 'snapshots',
+// }, {
+//   maxAge: 15 * 60, // 15 minutes
+//   name: 'snapshots',
+//   getKey: (event: H3Event) => event.node.req.url || 'snapshots',
 })

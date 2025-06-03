@@ -4,9 +4,11 @@ export default defineTask({
     description: 'Health check for Another APOD viewer',
   },
   async run() {
-    if (import.meta.dev) {
-      return { error: 'dev server' }
-    }
+    console.log('Running health check for Another APOD viewer...')
+    console.log(import.meta.dev)
+    // if (import.meta.dev) {
+    //   return { error: 'dev server' }
+    // }
 
     const healthData = await healthFetch('https://apod.tcastanie.dev')
 
@@ -14,6 +16,8 @@ export default defineTask({
       siteId: 2,
       ...healthData,
     }).returning().get()
+
+    console.log('Health check result:', check)
 
     return { result: check }
   },

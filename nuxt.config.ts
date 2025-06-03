@@ -34,14 +34,17 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
+      wrangler: {
+        triggers: {
+          crons: ['* * * * *', '*/30 * * * *', '*/15 * * * *'],
+        },
+      },
     },
     experimental: {
       tasks: true,
     },
     scheduledTasks: {
-      '0 * * * *': [
-        'check:another-apod-viewer',
-      ],
+      '* * * * *': ['check:another-apod-viewer'],
       '*/30 * * * *': [
         'check:tcastanie-dev',
         'check:tycho-station',
