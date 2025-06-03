@@ -9,6 +9,7 @@ export default defineTask({
     }
 
     const { urlRoci } = useRuntimeConfig()
+    console.log('Checking:', urlRoci)
     const healthData = await healthFetch(urlRoci)
 
     const check = await useDrizzle().insert(tables.check).values({

@@ -8,7 +8,6 @@
       <img src="/logo.svg" alt="Logo Star Status" class="h-12 w-auto max-w-[80vw]">
     </template>
     <template #right>
-      <div>🚧 WIP 🚧</div>
       <UColorModeButton />
       <UButton
         color="neutral"
