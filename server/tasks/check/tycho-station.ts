@@ -8,7 +8,8 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const { urlTycho } = useRuntimeConfig()
+    const event = useEvent()
+    const { urlTycho } = useRuntimeConfig(event)
     const healthData = await healthFetch(urlTycho)
 
     const check = await useDrizzle().insert(tables.check).values({

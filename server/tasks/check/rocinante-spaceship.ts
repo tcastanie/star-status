@@ -8,7 +8,8 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const { urlRoci } = useRuntimeConfig()
+    const event = useEvent()
+    const { urlRoci } = useRuntimeConfig(event)
     console.log('Checking:', urlRoci)
     const healthData = await healthFetch(urlRoci)
 
