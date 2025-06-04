@@ -1,8 +1,5 @@
 import { Resend } from 'resend'
 
-// eslint-disable-next-line node/prefer-global/process
-const resend = new Resend(process.env.NUXT_RESEND_API_KEY || '')
-
 export async function sendEmail(service: string, healthData: {
   success: boolean
   responseTime: number
@@ -16,6 +13,12 @@ export async function sendEmail(service: string, healthData: {
     <li>Error: ${healthData.error || 'None'}</li>
     <li>Created At: ${healthData.createdAt.toISOString()}</li>
   </ul>`
+
+  // const { NUXT_RESEND_API_KEY } = useRuntimeConfig()
+  // eslint-disable-next-line node/prefer-global/process
+  const resendApiKey = process.env.NUXT_RESEND_API_KEY || ''
+  const resend = new Resend(resendApiKey)
+
   const { error } = await resend.emails.send({
     from: 'Star Status <status@tycho.tcastanie.dev>',
     to: ['thibaut.castanie@gmail.com'],
