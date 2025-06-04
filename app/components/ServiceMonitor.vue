@@ -69,7 +69,7 @@ function generateTooltip(snapshot: any) {
           v-for="snap of invertedSnapshots"
           :key="`${monitorId}-${snap.start}`"
           arrow
-          aria-multiline="true"
+          :content="{ side: 'top' }"
           :ui="{ content: 'h-full whitespace-pre' }"
         >
           <template #content>
