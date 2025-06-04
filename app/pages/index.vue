@@ -5,6 +5,8 @@ definePageMeta({
   },
 })
 
+useSeoMeta({ title: 'Star Status' })
+
 const routeQuery = useRoute().query
 const projectSlug = routeQuery.project ? String(routeQuery.project) : null
 
