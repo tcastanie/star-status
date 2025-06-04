@@ -17,6 +17,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('Rocinante spaceship', healthData)
+    }
+
     return { result: check }
   },
 })

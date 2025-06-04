@@ -17,6 +17,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('Tycho station', healthData)
+    }
+
     return { result: check }
   },
 })

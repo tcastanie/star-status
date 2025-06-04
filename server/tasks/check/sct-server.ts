@@ -17,6 +17,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('Stoneybatter Cross Training server', healthData)
+    }
+
     return { result: check }
   },
 })

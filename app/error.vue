@@ -14,5 +14,6 @@ defineProps<{
 
     <TheHeader />
     <UError :error="error" />
+    <TheFooter />
   </UApp>
 </template>

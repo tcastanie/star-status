@@ -52,7 +52,7 @@ function generateTooltip(snapshot: any) {
     :icon="statusIcon"
     :color="statusColor"
     variant="subtle"
-    :ui="{ root: 'p-8 gap-6', icon: 'size-6', title: '' }"
+    :ui="{ root: 'p4 md:p-8 gap-2 md:gap-6', icon: 'size-6', title: '' }"
   >
     <template #title>
       <div class="flex items-center justify-between">
@@ -64,7 +64,7 @@ function generateTooltip(snapshot: any) {
     </template>
 
     <template #description>
-      <div class="mt-4 flex gap-x-1">
+      <div class="mt-1 md:mt-4 flex gap-x-0 sm:gap-x-0.5 md:gap-x-1">
         <UTooltip
           v-for="snap of invertedSnapshots"
           :key="`${monitorId}-${snap.start}`"
@@ -76,7 +76,7 @@ function generateTooltip(snapshot: any) {
             <p class="text-base font-mona font-medium" v-html="generateTooltip(snap)" />
           </template>
           <div
-            class="w-full h-12 rounded-xs hover:opacity-50"
+            class="w-full h-8 md:h-12 rounded-xs hover:opacity-50"
             :class="{
               'bg-accented': !snap.status || snap.status === 'off',
               'bg-success': snap.status === 'up',

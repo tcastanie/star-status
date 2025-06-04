@@ -18,6 +18,6 @@ import { en } from '@nuxt/ui-pro/locale'
       </UMain>
     </UContainer>
 
-    <UFooter>🌠</UFooter>
+    <TheFooter />
   </UApp>
 </template>

@@ -21,9 +21,7 @@ export default defineNuxtConfig({
     urlRoci: '',
     urlSpace: '',
     urlSct: '',
-    public: {
-      defaultTimeout: 10000, // 10 seconds
-    },
+    resendApiKey: '',
   },
   future: {
     compatibilityVersion: 4,

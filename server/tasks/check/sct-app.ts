@@ -15,6 +15,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('Stoneybatter Cross Training App', healthData)
+    }
+
     return { result: check }
   },
 })

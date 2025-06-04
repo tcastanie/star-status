@@ -9,14 +9,6 @@
     </template>
     <template #right>
       <UColorModeButton />
-      <UButton
-        color="neutral"
-        variant="ghost"
-        to="https://github.com/tcastanie/star-status"
-        target="_blank"
-        icon="i-mingcute-github-fill"
-        aria-label="GitHub"
-      />
     </template>
   </UHeader>
 </template>

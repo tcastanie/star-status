@@ -17,6 +17,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('Space platform', healthData)
+    }
+
     return { result: check }
   },
 })

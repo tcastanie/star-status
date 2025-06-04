@@ -1,5 +1,6 @@
 export default async function (checkUrl: string) {
-  const { public: { defaultTimeout } } = useRuntimeConfig()
+  const DEFAULT_TIMEOUT = 10000 // 10 seconds
+
   let status = 0
   let err: any = null
   // checkUrl = 'https://httpstat.us/504?sleep=60000' // test timeout
@@ -7,7 +8,7 @@ export default async function (checkUrl: string) {
   const timeBegin = performance.now()
   await $fetch(checkUrl, {
     method: 'HEAD',
-    timeout: defaultTimeout,
+    timeout: DEFAULT_TIMEOUT,
     retry: 0,
     headers: {
       'User-Agent': 'StarStatus-HealthCheck/1.0',

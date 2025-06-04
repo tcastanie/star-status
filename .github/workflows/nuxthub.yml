@@ -40,6 +40,7 @@ jobs:
           NUXT_URL_ROCI: ${{ secrets.NUXT_URL_ROCI }}
           NUXT_URL_SPACE: ${{ secrets.NUXT_URL_SPACE }}
           NUXT_URL_SCT: ${{ secrets.NUXT_URL_SCT }}
+          NUXT_RESEND_API_KEY: ${{ secrets.NUXT_RESEND_API_KEY }}
 
       - name: Deploy to NuxtHub
         uses: nuxt-hub/action@v1

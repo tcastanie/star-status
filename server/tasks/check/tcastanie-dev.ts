@@ -15,6 +15,10 @@ export default defineTask({
       ...healthData,
     }).returning().get()
 
+    if (!healthData.success) {
+      sendEmail('tcastanie.dev', healthData)
+    }
+
     return { result: check }
   },
 })
