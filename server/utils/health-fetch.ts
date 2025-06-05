@@ -21,7 +21,8 @@ export default async function (checkUrl: string) {
     async onResponse({ response }) {
       status = response.status
       if (status >= 400) {
-        console.warn(`[${checkUrl}] Unhealthy response:`, status)
+        console.warn(`[${checkUrl}] Unhealthy response:`, response.status, response.statusText)
+        err = { message: `${response.status} ${response.statusText}` }
       }
     },
   }).catch(error => error)

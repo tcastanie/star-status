@@ -8,8 +8,8 @@ export default async function (serviceUrl: string, serviceId: number) {
   const serviceName = service[0]?.name
 
   const healthData = await healthFetch(serviceUrl)
-  const check = await healthSave(serviceId, healthData)
   const lastCheck = await healthLast(serviceId)
+  const check = await healthSave(serviceId, healthData)
 
   if (lastCheck.length > 0) {
     if (lastCheck[0].success !== healthData.success) {
