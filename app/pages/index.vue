@@ -32,8 +32,8 @@ const { data: services, status } = await useFetch('/api/snapshots', {
 
 const nbServicesDown = computed(() => {
   let downServices = 0
-  for (const snapshots of Object.values(services.value || {})) {
-    if (snapshots[0] && snapshots[0].status === 'down') {
+  for (const service of services.value || []) {
+    if (service.last === false) {
       downServices++
     }
   }
@@ -67,6 +67,7 @@ const project = computed(() => {
           v-model="days"
           :items="items"
           :loading="status === 'pending'"
+          trailing
           class="w-48"
         />
       </template>
@@ -77,9 +78,10 @@ const project = computed(() => {
         <USkeleton v-if="status === 'pending'" class="h-27 rounded-lg" />
         <template v-else>
           <ServiceMonitor
-            v-for="(snapshots, label) in services"
-            :key="label"
-            :title="String(label)"
+            v-for="{ name, last, snapshots } of services"
+            :key="name"
+            :title="String(name)"
+            :last="!!last"
             :snapshots
           />
           <template v-if="!Object.keys(services || {}).length">

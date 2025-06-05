@@ -6,52 +6,56 @@ export default function transformChecksToSnapshots(
   const nbMinutes = days * 24 * 60
   const snapshotsDuration = Math.ceil(nbMinutes / 90)
 
-  const snapshotsItems = Object.fromEntries(
-    Object.entries(groupedChecks).map(([serviceName, checks]) => {
-      const snapshots: {
-        status: string
-        start: Date
-        end: Date
-        uptime?: number
-        errors?: { message: string, date: Date }[]
-      }[] = []
-      for (let i = 0; i < 90; i++) {
-        const end = new Date(Date.now() - (i * snapshotsDuration * 60 * 1000))
-        const start = new Date(end.getTime() - (snapshotsDuration * 60 * 1000))
+  const snapshotsItems = Object.entries(groupedChecks).map(([serviceName, checks]) => {
+    const snapshots: {
+      status: string
+      start: Date
+      end: Date
+      uptime?: number
+      errors?: { message: string, date: Date }[]
+    }[] = []
+    for (let i = 0; i < 90; i++) {
+      const end = new Date(Date.now() - (i * snapshotsDuration * 60 * 1000))
+      const start = new Date(end.getTime() - (snapshotsDuration * 60 * 1000))
 
-        const snapshotChecks = checks.filter((check) => {
-          const checkDate = new Date(check.createdAt)
-          return checkDate >= start && checkDate < end
-        })
+      const snapshotChecks = checks.filter((check) => {
+        const checkDate = new Date(check.createdAt)
+        return checkDate >= start && checkDate < end
+      })
 
-        if (!snapshotChecks.length) {
-          snapshots.push({ status: 'off', start, end })
+      if (!snapshotChecks.length) {
+        snapshots.push({ status: 'off', start, end })
+      }
+      else {
+        if (snapshotChecks.every(check => check.success)) {
+          snapshots.push({ status: 'up', start, end, uptime: 100 })
         }
-        else {
-          if (snapshotChecks.every(check => check.success)) {
-            snapshots.push({ status: 'up', start, end, uptime: 100 })
-          }
-          else if (snapshotChecks.some(check => !check.success)) {
-            const totalChecks = snapshotChecks.length
-            const successfulChecks = snapshotChecks.filter(check => check.success).length
-            const uptime = (successfulChecks / totalChecks) * 100
-            snapshots.push({
-              status: 'down',
-              start,
-              end,
-              uptime,
-              errors: snapshotChecks.filter(check => !check.success)
-                .map(check => ({
-                  message: check.error || '',
-                  date: check.createdAt,
-                })),
-            })
-          }
+        else if (snapshotChecks.some(check => !check.success)) {
+          const totalChecks = snapshotChecks.length
+          const successfulChecks = snapshotChecks.filter(check => check.success).length
+          const uptime = (successfulChecks / totalChecks) * 100
+          snapshots.push({
+            status: 'down',
+            start,
+            end,
+            uptime,
+            errors: snapshotChecks.filter(check => !check.success)
+              .map(check => ({
+                message: check.error || '',
+                date: check.createdAt,
+              })),
+          })
         }
       }
-      return [serviceName, snapshots]
-    }),
-  )
+    }
+
+    const lastCheckSuccess = checks[0]?.success
+    return {
+      name: serviceName,
+      snapshots,
+      last: lastCheckSuccess,
+    }
+  })
 
   return snapshotsItems
 }

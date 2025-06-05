@@ -8,16 +8,7 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const healthData = await healthFetch('https://www.domaine-langelus.fr')
-
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 6,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Domaine l\'Angélus', healthData)
-    }
+    const check = await healthCheck('https://www.domaine-langelus.fr', 6)
 
     return { result: check }
   },

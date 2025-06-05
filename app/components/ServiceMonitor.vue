@@ -1,6 +1,7 @@
 <script lang="ts" setup>
-const { title, snapshots = [] } = defineProps<{
+const { title, last, snapshots = [] } = defineProps<{
   title: string
+  last: boolean
   snapshots?: any[]
 }>()
 const monitorId = useId()
@@ -10,11 +11,10 @@ const invertedSnapshots = computed(() => {
 })
 
 const statusColor = computed(() => {
-  if (snapshots[0]?.status === 'up')
-    return 'success'
-  if (snapshots[0]?.status === 'down')
-    return 'error'
-  return 'neutral'
+  if (snapshots[0]?.status === 'off') {
+    return 'neutral'
+  }
+  return last ? 'success' : 'error'
 })
 const statusIcon = computed(() => statusColor.value === 'success' ? 'i-mingcute-check-2-fill' : 'i-mingcute-wifi-off-fill')
 

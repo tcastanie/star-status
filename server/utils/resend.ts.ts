@@ -6,7 +6,11 @@ export async function sendEmail(service: string, healthData: {
   error: any
   createdAt: Date
 }) {
-  const html = `<p><strong>${service} is down!</strong><p>
+  // eslint-disable-next-line node/prefer-global/process
+  const resendApiKey = process.env.NUXT_RESEND_API_KEY || ''
+  const resend = new Resend(resendApiKey)
+
+  const html = `<p><strong>${service} is ${healthData.success ? 'up' : 'down'}!</strong><p>
   <ul>
     <li>Success: ${healthData.success}</li>
     <li>Response Time: ${healthData.responseTime} ms</li>
@@ -14,15 +18,10 @@ export async function sendEmail(service: string, healthData: {
     <li>Created At: ${healthData.createdAt.toISOString()}</li>
   </ul>`
 
-  // const { NUXT_RESEND_API_KEY } = useRuntimeConfig()
-  // eslint-disable-next-line node/prefer-global/process
-  const resendApiKey = process.env.NUXT_RESEND_API_KEY || ''
-  const resend = new Resend(resendApiKey)
-
   const { error } = await resend.emails.send({
     from: 'Star Status <status@tycho.tcastanie.dev>',
     to: ['thibaut.castanie@gmail.com'],
-    subject: `${service} is down!`,
+    subject: `${service} is ${healthData.success ? 'up' : 'down'}!`,
     html,
   })
 

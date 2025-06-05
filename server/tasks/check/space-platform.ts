@@ -10,16 +10,8 @@ export default defineTask({
 
     // eslint-disable-next-line node/prefer-global/process
     const urlSpace = process.env.NUXT_URL_SPACE || ''
-    const healthData = await healthFetch(urlSpace)
 
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 5,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Space platform', healthData)
-    }
+    const check = await healthCheck(urlSpace, 5)
 
     return { result: check }
   },

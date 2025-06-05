@@ -8,16 +8,7 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const healthData = await healthFetch('https://app.stoneybattercrosstraining.ie/health')
-
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 7,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Stoneybatter Cross Training App', healthData)
-    }
+    const check = await healthCheck('https://app.stoneybattercrosstraining.ie/health', 7)
 
     return { result: check }
   },

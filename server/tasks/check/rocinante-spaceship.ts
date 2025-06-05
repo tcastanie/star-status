@@ -10,16 +10,8 @@ export default defineTask({
 
     // eslint-disable-next-line node/prefer-global/process
     const urlRoci = process.env.NUXT_URL_ROCI || ''
-    const healthData = await healthFetch(urlRoci)
 
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 4,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Rocinante spaceship', healthData)
-    }
+    const check = await healthCheck(urlRoci, 4)
 
     return { result: check }
   },

@@ -10,16 +10,8 @@ export default defineTask({
 
     // eslint-disable-next-line node/prefer-global/process
     const urlSct = process.env.NUXT_URL_SCT || ''
-    const healthData = await healthFetch(urlSct)
 
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 8,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Stoneybatter Cross Training server', healthData)
-    }
+    const check = await healthCheck(urlSct, 8)
 
     return { result: check }
   },

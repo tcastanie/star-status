@@ -8,16 +8,7 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const healthData = await healthFetch('https://apod.tcastanie.dev')
-
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 2,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('Another APOD viewer', healthData)
-    }
+    const check = await healthCheck('https://apod.tcastanie.dev', 2)
 
     return { result: check }
   },

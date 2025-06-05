@@ -8,16 +8,7 @@ export default defineTask({
       return { error: 'dev server' }
     }
 
-    const healthData = await healthFetch('https://tcastanie.dev')
-
-    const check = await useDrizzle().insert(tables.check).values({
-      siteId: 1,
-      ...healthData,
-    }).returning().get()
-
-    if (!healthData.success) {
-      sendEmail('tcastanie.dev', healthData)
-    }
+    const check = await healthCheck('https://tcastanie.dev', 1)
 
     return { result: check }
   },
