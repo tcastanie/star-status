@@ -12,6 +12,7 @@ export default function transformChecksToSnapshots(
       start: Date
       end: Date
       uptime?: number
+      responseTime?: number
       errors?: { message: string, date: Date }[]
     }[] = []
     for (let i = 0; i < 90; i++) {
@@ -27,18 +28,20 @@ export default function transformChecksToSnapshots(
         snapshots.push({ status: 'off', start, end })
       }
       else {
+        const successfullChecks = snapshotChecks.filter(check => check.success).length
+        const responseTime = snapshotChecks.filter(check => check.success).reduce((acc, check) => acc + (check.responseTime || 0), 0) / successfullChecks
         if (snapshotChecks.every(check => check.success)) {
-          snapshots.push({ status: 'up', start, end, uptime: 100 })
+          snapshots.push({ status: 'up', start, end, uptime: 100, responseTime })
         }
         else if (snapshotChecks.some(check => !check.success)) {
           const totalChecks = snapshotChecks.length
-          const successfulChecks = snapshotChecks.filter(check => check.success).length
-          const uptime = (successfulChecks / totalChecks) * 100
+          const uptime = (successfullChecks / totalChecks) * 100
           snapshots.push({
             status: 'down',
             start,
             end,
             uptime,
+            responseTime,
             errors: snapshotChecks.filter(check => !check.success)
               .map(check => ({
                 message: check.error || '',

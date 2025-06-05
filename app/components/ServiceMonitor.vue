@@ -31,10 +31,26 @@ const totalUptime = computed(() => {
   return total ? +(total / count).toFixed(2) : 0
 })
 
+const meanResponseTime = computed(() => {
+  // calculate mean response time of success checks
+  let count = 0
+  const total = snapshots.reduce((acc, snap) => {
+    if (snap.responseTime) {
+      count++
+      return acc + snap.responseTime
+    }
+    return acc
+  }, 0)
+  return total ? Math.round(total / count) : 0
+})
+
 function generateTooltip(snapshot: any) {
   let tooltip = `${dateToString(new Date(snapshot.start))}   ↔   ${dateToString(new Date(snapshot.end))}`
   if (snapshot.uptime) {
     tooltip += `\n\nUptime: ${+(snapshot.uptime).toFixed(2)}%`
+  }
+  if (snapshot.responseTime) {
+    tooltip += `\nAverage response time: ${Math.round(snapshot.responseTime)} ms`
   }
   if (snapshot.errors && snapshot.errors.length > 0) {
     tooltip += `\n\nErrors:\n`
@@ -55,11 +71,14 @@ function generateTooltip(snapshot: any) {
     :ui="{ root: 'p4 md:p-8 gap-2 md:gap-6', icon: 'size-6', title: '' }"
   >
     <template #title>
-      <div class="flex items-center justify-between">
+      <div class="flex flex-wrap items-end justify-between gap-2">
         <div class="font-hubot text-lg text-pretty font-semibold text-highlighted">
           {{ title }}
         </div>
-        <span class="text-base text-toned">{{ totalUptime }}% uptime</span>
+        <p class="flex flex-wrap items-center justify-end text-right gap-x-2 sm:gap-x-8 text-base text-toned ml-auto">
+          <span>{{ meanResponseTime }}ms</span>
+          <span>{{ totalUptime }}% uptime</span>
+        </p>
       </div>
     </template>
 

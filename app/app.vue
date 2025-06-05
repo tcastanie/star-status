@@ -5,7 +5,7 @@ import { en } from '@nuxt/ui-pro/locale'
 <template>
   <UApp
     :locale="en"
-    :tooltip="{ delayDuration: 300, disableClosingTrigger: true }"
+    :tooltip="{ delayDuration: 200, disableClosingTrigger: true }"
   >
     <NuxtRouteAnnouncer />
     <NuxtLoadingIndicator color="#e6375a" />
