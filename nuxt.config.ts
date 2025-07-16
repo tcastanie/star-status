@@ -32,11 +32,15 @@ export default defineNuxtConfig({
     cloudflare: {
       deployConfig: true,
       nodeCompat: true,
-      wrangler: {
-        triggers: {
-          crons: ['*/30 * * * *', '*/15 * * * *'],
-        },
-      },
+      // wrangler: {
+      //   triggers: {
+      //     crons: [
+      //       '*/30 * * * *',
+      //       '*/15 * * * *',
+      //       '*/5 * * * *',
+      //     ],
+      //   },
+      // },
     },
     experimental: {
       tasks: true,

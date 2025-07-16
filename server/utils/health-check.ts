@@ -15,21 +15,21 @@ export default async function (serviceUrl: string, serviceId: number) {
     if (lastCheck[0].success !== healthData.success) {
       sendEmail(serviceName, healthData)
 
-      if (serviceId === 4 && healthData.success === false) {
-        // eslint-disable-next-line node/prefer-global/process
-        const testAction = process.env.NUXT_TEST_ACTION || ''
-        // eslint-disable-next-line node/prefer-global/process
-        const testKey = process.env.NUXT_TEST_KEY || ''
-        await $fetch(testAction, {
-          method: 'GET',
-          headers: {
-            'Authorization': `Bearer ${testKey}`,
-            'Content-Type': 'application/json',
-          },
-        }).catch((error) => {
-          console.error('Error sending test action:', error)
-        })
-      }
+      // if (serviceId === 4 && healthData.success === false) {
+      //   // eslint-disable-next-line node/prefer-global/process
+      //   const testAction = process.env.NUXT_TEST_ACTION || ''
+      //   // eslint-disable-next-line node/prefer-global/process
+      //   const testKey = process.env.NUXT_TEST_KEY || ''
+      //   await $fetch(testAction, {
+      //     method: 'GET',
+      //     headers: {
+      //       'Authorization': `Bearer ${testKey}`,
+      //       'Content-Type': 'application/json',
+      //     },
+      //   }).catch((error) => {
+      //     console.error('Error sending test action:', error)
+      //   })
+      // }
     }
   }
 
