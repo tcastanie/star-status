@@ -1,5 +1,5 @@
 export default async function (checkUrl: string) {
-  const DEFAULT_TIMEOUT = 10000 // 10 seconds
+  const DEFAULT_TIMEOUT = 20000 // 20 seconds
 
   let status = 0
   let err: any = null
