@@ -48,11 +48,13 @@ export default defineNuxtConfig({
         'check:tycho-station',
       ],
       '*/15 * * * *': [
-        'check:rocinante-spaceship',
         'check:space-platform',
         'check:domaine-langelus',
         'check:sct-app',
         'check:sct-server',
+      ],
+      '*/5 * * * *': [
+        'check:rocinante-spaceship',
       ],
     },
   },
