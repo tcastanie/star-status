@@ -45,22 +45,22 @@ export default defineNuxtConfig({
     experimental: {
       tasks: true,
     },
-    scheduledTasks: {
-      '*/30 * * * *': [
-        'check:tcastanie-dev',
-        'check:another-apod-viewer',
-        'check:tycho-station',
-      ],
-      '*/15 * * * *': [
-        'check:space-platform',
-        'check:domaine-langelus',
-        'check:sct-app',
-        'check:sct-server',
-      ],
-      '*/5 * * * *': [
-        'check:rocinante-spaceship',
-      ],
-    },
+    // scheduledTasks: {
+    //   '*/30 * * * *': [
+    //     'check:tcastanie-dev',
+    //     'check:another-apod-viewer',
+    //     'check:tycho-station',
+    //   ],
+    //   '*/15 * * * *': [
+    //     'check:space-platform',
+    //     'check:domaine-langelus',
+    //     'check:sct-app',
+    //     'check:sct-server',
+    //   ],
+    //   '*/5 * * * *': [
+    //     'check:rocinante-spaceship',
+    //   ],
+    // },
   },
   hub: {
     cache: false,
